@@ -417,3 +417,25 @@ libedgetpu_dependencies()
 
 load("@coral_crosstool//:configure.bzl", "cc_crosstool")
 cc_crosstool(name = "crosstool")
+
+# Emscripten toolchain
+# Use 2.0.34
+load("@bazel_tools//tools/build_defs/repo:http.bzl", "http_archive")
+http_archive(
+    name = "emsdk",
+    sha256 = "a96ddf34de8de779c78be2785df04ae63c9a557da9e83e85332cda3d01bca250",
+    strip_prefix = "emsdk-2.0.34/bazel",
+    url = "https://github.com/emscripten-core/emsdk/archive/refs/tags/2.0.34.tar.gz",
+)
+
+load("@emsdk//:deps.bzl", emsdk_deps = "deps")
+emsdk_deps()
+
+load("@emsdk//:emscripten_deps.bzl", emsdk_emscripten_deps = "emscripten_deps")
+emsdk_emscripten_deps()
+
+#load("@emsdk//:toolchains.bzl", emsdk_register_emscripten_toolchains = "register_emscripten_toolchains")
+#emsdk_register_emscripten_toolchains()
+
+#load("@emsdk//:toolchains.bzl", "register_emscripten_toolchains")
+#register_emscripten_toolchains()

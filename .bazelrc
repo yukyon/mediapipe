@@ -100,3 +100,19 @@ try-import %workspace%/.configure.bazelrc
 
 # This bazelrc file can be used for user-specific custom build settings.
 try-import %workspace%/.user.bazelrc
+
+# emscripten
+
+##### WASM #####
+# Use our custom-configured c++ toolchain.
+build:wasm --crosstool_top=@emsdk//emscripten_toolchain:everything --verbose_failures
+
+# Use --cpu as a differentiator.
+build:wasm --cpu=wasm
+
+# Use the default C++ toolchain to build the tools used during the build.
+build:wasm --host_crosstool_top=@bazel_tools//tools/cpp:toolchain
+
+# Disable sandbox environment because emsdk caches files by writing to
+# home directory.
+build:wasm --spawn_strategy=local
