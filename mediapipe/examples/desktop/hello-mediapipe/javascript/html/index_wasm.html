@@ -1,0 +1,11 @@
+<!DOCTYPE html>
+<script src="../dist/wasm/umd/index.js"></script>
+<script>
+  (async () => {
+    // Wait for the library to initialize
+    const hw = await HelloMediapipe();
+
+    hw.Greet.sayHello();
+  })();
+</script>
+You're debugging the WASM target
